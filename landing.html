@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.min.css">
+</head>
+<body>
+    <h1 class="text-center">Exemple de landing qui reprend les datas d'un formulaire et les implémente dans Google sheet</h1>
+   
+<div id="message">
+
+</div>
+<form name="submit-to-google-sheet" id="myForm" style="max-width: 50%; margin: 0 auto; padding: 3em;">
+  <div class="form-group">
+    <label for="email">Entrez une adresse email</label>
+    <input class="form-control" name="email" type="email" placeholder="Email" required>
+  </div>
+    <button class="btn btn-primary" type="submit">Envoyer</button>
+  </form>
+
+
+  <div class="text-center mt-5">
+    <button class="btn btn-info">
+    <a style="color:#fff;" href="https://docs.google.com/spreadsheets/d/10PM2YJ7Ohxn__EOxJ5KoU4XO8x763VBCl08gWnWUQt4/edit?usp=sharing">Lien de la feuille de données google sheet</a></button>
+  </div>
+  
+  <script>
+    const scriptURL = '<SCRIPT URL>';
+    const form = document.forms['submit-to-google-sheet'];
+    const message = document.getElementById('message');
+    var p = document.createElement("p");
+    p.textContent = "message envoyé";
+    
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch('https://script.google.com/macros/s/AKfycbyW9tSkRhVNXuKzPi9NAKZbwBiqykfNvRdC9SrkjPpQbDw9IAlDaPi_i2SxUX7LV8Xb/exec', { method: 'POST', body: new FormData(form)})
+        .then(response => message.appendChild(p))
+        .catch(error => console.error('Error!', error.message))
+    form.reset();
+    })
+  </script>
+
+</body>
+</html>
